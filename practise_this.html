@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>this_context</title>
+		<meta name="description" content="blog">
+		<meta name="author" content="leoor">
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<script type="text/javascript" charset="UTF-8">
+		
+		/**
+		 * 第一部分
+		 * this 都指代当前浏览器对象 window
+		 */
+			var a = 10;
+			function test() {
+				var a = 7;
+				console.log(this); // window 
+				console.log(this.a); // 10
+				console.log(a);	// 7
+				innerTest();
+				function innerTest() {
+					var a = 1;
+					console.log(this.a); // 10
+					console.log(a);	// 1
+				}
+			}
+			//test();
+			
+			var b = 10;
+			function test2() {
+				b = 7;
+				console.log(b);	// 7
+				console.log(this.b); // 7  由于test2() 内部定义的b没有var，是全局变量，覆盖了原来的值
+			}
+			//test2();
+			
+			var c = 10;
+			function test3() {
+				c = 7;
+				console.log(c);	// 7
+				var c;
+				console.log(this.c); // 10 由于test3() 内部申明了 var c, 所以 c = 7 是内部变量
+			}
+			//test3();
+			
+			
+		/**
+		 * 第二部分
+		 * 关于对象，其函数内部的this指的是当前对象:o.test4();
+		 * 但如果其函数内部嵌套了函数，则是此时的this指代的是当前浏览器对象window。
+		 * 如需保持当前对象，需要 函数中定义var self = this 保留对当前对象的引用: o.test5();
+		 */	
+		 
+		 var o = {
+		 	description: 'about context this',
+		 	test4: function() {
+		 		console.log(this);	// Object o
+		 	},
+		 	test5: function() {
+		 		var self = this;
+		 		show();
+		 		function show() {
+		 			console.log(this);	// window
+		 			console.log(self);	// Object o
+		 		};
+		 	}
+		 };		 
+		 //o.test4();
+		 //o.test5();
+		 
+		 var name = 'tao';
+		 var oo = {
+		 	name: 'taotao',
+		 	show: function() {
+		 		console.log(name);	// 'tao'
+		 		console.log(this.name); // 'taotao'
+		 	},
+		 };
+		 oo.show();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
