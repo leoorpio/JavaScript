@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>012_design</title>
+		<meta name="description" content="">
+		<meta name="author" content="leoor">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<script type="text/javascript" charset="UTF-8">
+			// JavaScript定义接口有三种方式
+			
+			
+			// 1.注解描述的方式
+			/**
+			 * 优点：程序员可以有一个参考
+			 * 缺点：还是属于文档的范畴，这种方式太松散了，没有检查接口的方法是否完全被实现
+			 */
+			/**
+			 *  interface Composite{
+			 * 		function add(obj);
+			 * 		function remove(obj);
+			 * 		function update(obj);
+			 * }
+			 */
+			var CompositionImpl = function() {
+				
+			};
+			
+			CompositionImpl.prototype.add = function(obj) {
+				// do something...
+			}; 
+			CompositionImpl.prototype.remove = function(obj) {
+				// do something...
+			};
+			CompositionImpl.prototype.update = function(obj) {
+				// do something...
+			};
+			
+			var c1 = new CompositionImpl();
+			var c2 = new CompositionImpl();
+			alert(c1.add == c2.add);  // false
+			// 2.属性检测的方式
+			
+			
+			// 3.鸭式辨型的方式
+		</script>
+	</head>
+
+	<body>
+		<div>
+			<header>
+				<h1>012_design</h1>
+			</header>
+			<nav>
+				<p>
+					<a href="/">Home</a>
+				</p>
+				<p>
+					<a href="/contact">Contact</a>
+				</p>
+			</nav>
+
+			<div>
+
+			</div>
+
+			<footer>
+				<p>
+					&copy; Copyright  by leoor
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>

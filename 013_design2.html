@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>013_design2</title>
+		<meta name="description" content="">
+		<meta name="author" content="leoor">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<script type="text/javascript" charset="UTF-8">
+			// 第二种实现接口的方式：属性检测的方式
+			
+			/**
+			 * interface Composite{
+			 * 		funciton add(obj);
+			 * 		funciton remove(obj);
+			 * 		funciton update(obj);
+			 * 
+			 * }
+			 * 
+			 * interface FormItem {
+			 * 		function select(obj);
+			 * }
+			 */
+			
+			// CompositeImpl implements Composite, FormItem
+			var CompositeImpl = function() {
+				// 显示在类的内部，接受所实现的接口
+				// 一般来说是一个规范  我们项目经理：在类的内部定义一个数组（名字要固定）
+				this.implementsInterfaces = ['Composite', 'FormItem'];
+				
+			};
+			
+			CompositeImpl.prototype.add = function(obj) {
+				// do something
+				alert('add...');
+			};
+			
+			CompositeImpl.prototype.remove = function(obj) {
+				// do something
+				alert('remove...');
+			};
+			
+			CompositionImpl.prototype.update = function(obj) {
+				// do something
+				alert('update...');
+			};
+			
+			CompositionImpl.prototype.select = function(obj) {
+				// do something
+				alert('select...');
+			};
+			
+			
+			// 检测CompositeImpl类的对象
+			function CheckCompositeImpl(instance) {
+				// 判断当前对象是否实现了所有接口
+				if(!IsImplements(instance,'Composite', 'FormItem')) {
+					throw new Error('Object does not implement a required interface!');
+				}
+			}
+			
+			//公共的具体的检测方法（核心方法）  返回值类型boolean
+			function IsImplements(object) {
+				// arguments 对象  获得函数的实际参数
+				for(var i = 1; i < arguments.length; i++) {
+					// 接受所实现的每个接口的名字
+					var interfaceName = arguments[i];
+					// 判断此方法到底成功还是失败
+					var interfaceFound = false;
+					for(var j = 0;j < object.implementsInterfaces.length;j++) {
+						if(object.implementsInterfaces[j] == interfaceName) {
+							interfaceFound = true;
+							break;
+						}
+					}
+					if(!interfaceFound) {
+						return false;
+					}
+				}
+				return true;
+			}
+			
+			var c1 = new ComplementImpl();
+			CheckCompositeImpl(c1);
+			c1.add();
+		</script>
+	</head>
+
+	<body>
+
+	</body>
+</html>

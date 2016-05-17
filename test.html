@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>test</title>
+		<meta name="author" content="leoor" />
+		<!-- Date: 2016-02-08 -->
+		<script type="text/javascript" charset="UTF-8">
+			/*
+			// 例1:
+				var a=10;
+				function test(){
+					    a=5;
+					    alert(a);    //5
+					    alert(this.a);  //5
+				}
+				test();
+				
+			// 例2:
+				var a = 10;
+				function test(){
+					    a=5;
+					    alert(this.a); //10
+					    alert(a);  //5
+					    var a;
+				}
+				test();
+			*/
+				
+	/*
+			var b = 7;
+			function test1() {
+				b = 2;	
+				alert(b);	// 2
+				alert(this.b); // 7 
+				var b;   //变量b定义了，但是不能赋值,导致这个b最后是局部变量    可以理解成这个 b是局部变量
+				alert(b);	// 2
+				alert(this.b);//7
+			}
+			test1();
+	*/
+
+			var b = 7;
+			function test1() {
+				b = 2;
+				alert(b);	// 2
+				alert(this.b); // 7 
+				var b;
+			}
+			test1();
+
+			
+			
+			/**
+			 * 属性和方法的理解 
+			 * 
+			 */
+			
+			/*
+			function Person() {
+				this.name = 'tao';
+				this.getThis = function() {
+					alert(this.constructor);
+				};
+				this.sayName = function() {
+					this.name;
+				};
+			}
+			Person.sex = 'a';
+			Person();
+			alert(typeof Person.sex);  //?这个 Person.sex  到底怎么理解？
+			var p1 = new Person();
+			alert(p1.hasOwnProperty('name'));
+			alert(p1.sex); //undefined	
+			alert(window.age);
+			
+			*/
+			/**
+			 * 形参与实参
+			 */
+			/*
+			function tao() {
+				this.sayName = function () {
+					alert('taotao');
+				};
+			}
+			
+			(function test(a,b) {
+				test01(10,'b','c','d');
+			})();
+			
+			function test01(object) {
+				alert(object);
+			};
+			*/
+			/*
+			function Student(){
+		        this.name = "khan";  //去掉this和有this的区别
+		        this.info = function(){
+		            alert('info()');
+		        };
+		    }
+		    
+		    var student = new Student(); //创建Student对象student
+		    
+		    document.write("对象形式1: "+student.name); 
+		    
+		    Student.name = "test";   //声明静态变量
+		
+		    document.write("静态访问1："+Student.name);
+		    var student2 = new Student(); //创建Student对象student2 
+		    document.write("对象形式2: "+student2.name); 
+		    
+		    document.write("全局变量："+name);
+		    */
+		   /**
+		    * 
+		    */
+		   /*
+		   var a = 10;
+		   a += 20;
+		   console.log(a);
+		   console.log(null == undefined);
+		   
+		   var Tao = {};
+		   Tao.sex = 'male';
+		   console.log(window.sex);
+		   console.log(Tao.sex);
+		   */
+		  
+		  /**
+		   * 原型对象
+		   */
+		  /*
+		  function Tao(){};
+		  Tao.prototype.name = "jilin";
+		  Tao.prototype.changeN = function() {
+		  	console.log(this.name);
+		  };
+		  
+		  Tao.prototype.setName = function() {
+		  	this.name = "new Name";
+		  };
+		  
+		  function changeName() {
+		  	this.name = "ss";
+		  }
+		  var a = new Tao();
+		  var b = new Tao();
+		  console.log(b.name);
+		  b.setName();
+		  console.log('b\'name is '+b.name);
+		  console.log('a\'name is '+a.name);
+		  
+		  */
+		 
+		 /*
+		 var a = 10;
+		 var b = 7;
+		 function sum(a, b) {
+		 	console.log('The value of a is '+this.a+'\t'+'and the value of b is '+ this.b);
+		 	return a + b;
+		 }
+		 
+		 function multiple(a, b) {
+		 	// return a * b;
+		 	return sum.call(new formula, a, b);
+		 }
+		 
+		 function formula(){}
+		 
+		 formula.prototype.a = 100;
+		 formula.prototype.b = 200;
+		 
+		 var o = {
+		 	a: 1,
+		 	b: 2
+		 };
+		 console.log(multiple(10,20));
+		 */
+		
+		/*
+		var name = 'xiao A';
+		var obj = {
+			name: 'xiao B',
+			getName1: function() {
+				return this.name;
+			},
+			getname2: function() {
+				return function() {
+					return this.name;
+				};
+			}
+		};
+		
+		alert(obj.getName());	// xiao B
+		alert(obj.getName2()())	// xiao A
+		
+		*/
+		/**
+		 * 闭包：一个函数 可以访问另外一个函数作用域中的变量
+		 * 封闭性： private 起到一个保护作用
+		 */
+		/*
+		function f(x) {
+			var temp = x;
+			return function(x) {
+				temp += x;
+				alert(temp);
+			};
+		}
+		
+		var a = f(50);
+		a(3);
+		
+		*/
+		
+		/*
+		function Person(name,age) {
+			this.name = name;
+			this.age = age;
+			this.sayName = function() {
+				console.log(this.name);
+			};
+		}
+		
+		var p1 = new Person('z3', 22);
+		var p2 = new Person('tao',21);
+		
+		p1.sayName();
+		p2.sayName();
+		alert(p1.sayName == p2.sayName);	//地址的对比  false
+		*/
+		/*
+		function Person(){};
+		var pro_p = Person.prototype;
+		pro_p.name = 'tao';
+		var p2 = new Person();
+		//p2.name = 'ji';
+		console.log('name' in p2);
+		console.log(p2.hasOwnProperty('name'));
+		
+		console.log(pro_p.isPrototypeOf(p2));
+		console.log(Person.prototype);	// Object
+		*/
+		
+		
+		/*
+		function Father(name) {
+			this.name = name;
+		}
+		
+		Father.prototype = {
+			constructor: Father,
+			sayName: function() {
+				console.log(this.name);
+			}
+		};
+		Object.defineProperty(Father.prototype, 'constructor',{enumerable: false,value: Father}); 
+		
+		function Son(age) {
+			this.age = age;
+		}
+				
+		Son.prototype.sayAge = function() {
+			console.log(this.age);
+		};
+		
+		var f = new Father('baba');
+		f.sayName();
+		
+		var s = new Son(18);
+		
+		console.log(Object.keys(Father.prototype));
+		console.log(Object.keys(Son.prototype));
+		*/
+		
+		/**
+		 * 继承
+		 */
+		
+		/*
+		function extend(father, son){
+			//目的：只继承父类的原型对象
+			
+			//1.用一个空函数进行中转
+			var F = new Function();	//function() {};
+			console.log(F);
+			F.prototype = father.prototype;  //空函数的原型对象和父类的原型对象转换
+			son.prototype = new F();	//原型继承
+
+			son.prototype.constructor = son;	//还原子类的构造器
+			
+			//保存一下父类的原型的对象，一方面是方便解耦，一方面是方便获得父类的原型对象
+			son.superClass = father.prototype;	//自定义一个子类的静态属性，接受父类的原型对象 
+			if(son.prototype.constructor == Object.prototype.constructor){
+				father.prototype.constructor = father;	//手动还原父类的构造器
+			}
+		}
+		
+		function Father(name) {
+			this.name = name;
+		}
+		
+		Father.prototype = {
+			constructor: Father,
+			sayName: function() {
+				console.log('father\'s function');
+			}
+		};
+		
+		function Son(name, sex, age) {
+			Son.superClass.constructor.call(this, name, sex);
+			this.age = age;
+		}
+		
+		extend(Father, Son);
+
+		
+	
+		var s = new Son('tao', 'male', 21);
+		s.sayName();
+		//s.myAge();
+		var After = Son.prototype;		
+		console.log('After '+After);
+		
+		*/		
+		/*
+		function Sup(name) {
+			this.name = name;
+		}
+		Sup.prototype = {
+			constructor: Sup,
+			sayName: function() {
+				console.log(this.name);
+			},
+			callMe: function() {
+				return 'My number is: 15050833516';
+			}
+		};
+		Object.defineProperty(Sup.prototype, 'constructor', {enumerable: false, value:Sup});
+		
+		function Sub(age) {
+			this.age = age;	
+		}
+		
+		Sub.prototype = new Sup('tao');
+		var s = new Sub(20);
+		
+		Sub.prototype.address = 'addresssss';
+		Sub.prototype.sendPackage = function() { console.log(this.address);};
+		s.sendPackage();
+
+		console.log(s.name);
+		console.log(s.age);
+		*/
+		</script>
+		
+		
+	</head>
+	<body>
+
+	</body>
+</html>
+

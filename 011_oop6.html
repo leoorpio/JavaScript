@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>011_oop6</title>
+		<meta name="description" content="">
+		<meta name="author" content="leoor">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<script type="text/javascript" charset="UTF-8">
+		
+			function extend(sub, sup) {
+				// 目的：实现只继承父类的原型对象
+				
+				var F = new Function(); // 1 创建一个空函数   目的： 空函数进行中转   function() {}
+				F.prototype = sup.prototype; // 2 实现空函数的原型对象和超类（superclass，即父类）的原型对象转换
+				sub.prototype = new F();	// 3 原型继承,每个函数都有一个prototype属性
+				
+				sub.prototype.constructor = sub; // 4 还原子类的构造器
+				// 保存一下父类的原型对象：一方面方便解耦，另一方面方便获得父类的原型对象
+				sub.superClass = sup.prototype; // 自定义一个子类的静态属性 接受父类的原型对象
+				// 判断父类的原型对象的构造器（加保险）
+				if(sup.prototype.constructor == Object.prototype.constructor) {
+					sup.prototype.constructor = sup; // 手动还原父类原型对象的构造器
+				}
+			}
+		
+			// 混合继承 ：原型继承和借用构造函数继承
+			function Person(name, age) {
+				this.name = name;
+				this.age = age;
+			}
+			
+			Person.prototype = {
+				constructor: Person,
+				
+			};
+		
+			function Boy(name, age, sex) {
+				// call 绑定父类的模板函数，实现借用构造函数继承，只复制了父类的模板
+				Boy.superClass.constructor.call(this, name, age);
+				this.sex = sex;
+			}
+			
+			
+			// 原型继承的方式：即继承了父类的模板，又继承了父类的原型对象
+			// Boy.prototype = new Person();
+			
+			// 只继承一遍父类的原型对象
+			extend(Boy, Person);
+			
+			Boy.prototype.sayHello = function() {
+				alert('js world');
+			};
+			
+			var b = new Boy('z3', 22, 'male');
+			alert(b.name);
+			alert(b.sex);
+			b.sayHello();
+			//Boy.superClass.sayHello.call(b);
+			// 3件事：继承了父类的2次模板，继承了1次父类的原型对象
+			//  
+			
+		</script>
+	</head>
+
+	<body>
+		<div>
+			<header>
+				<h1>011_oop6</h1>
+			</header>
+			<nav>
+				<p>
+					<a href="/">Home</a>
+				</p>
+				<p>
+					<a href="/contact">Contact</a>
+				</p>
+			</nav>
+
+			<div>
+
+			</div>
+
+			<footer>
+				<p>
+					&copy; Copyright  by leoor
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>003_callapply</title>
+		<meta name="author" content="leoor" />
+		<!-- Date: 2016-02-06 -->
+		<script type="text/javascript" charset="utf-8">
+			//call apply 简单的方法：绑定一些函数，用于传递函数 调用
+			function sum(x,y){
+				return x+y;
+			}
+			function call1(num1,num2){
+				return sum.call(this,num1,num2);
+			}
+			function apply1(){
+				return sum.apply(this,[num1,num2]);
+			}
+			
+			alert(call1(10,20));
+			
+			//扩充作用域
+			window.color = "red";
+			var obj ={color:"blue"};
+			function showColor(){
+				alert(this.color);
+			}
+			
+			showColor.call(this);	//red
+			showColor.call(window);	//red
+			shwoColor.call(obj);	//blue
+			
+			
+			//call 方法的简单模拟与实现
+			
+			//function方法
+			function test1(a , b){
+				return a+b;
+			}
+			
+			//如果函数定义第一个字母是大写的，类的概念
+			function Obj(x , y){
+				return x*y;
+			}
+			
+			var o = new Obj(10,20);
+			test1.call(o,o.x,o.y);
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>
+

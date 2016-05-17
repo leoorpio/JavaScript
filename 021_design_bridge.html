@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>021_design_bridge</title>
+		<meta name="description" content="">
+		<meta name="author" content="leoor">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<script type="text/javascript" charset="UTF-8" src="commons/common_util.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="commons/jquery-2.2.0.min.js"></script>
+		
+		<script type="text/javascript" charset="UTF-8">
+			// 桥接模式：主要作用就是把抽象和实现分离开来，使他们可以完全独立化
+			// 应用场景：事件监听回调机制
+			// 用户点击一个按钮，向服务器发送信息
+			// 当页面加载完毕之后执行函数体 window.onload
+			
+			/*
+
+			// classic
+			$(function(){
+				
+				// 1.前台业务逻辑
+				var inp = document.getElementById('inp');
+				// 用事件注册的方式，向元素上添加事件
+				TAO.EventUtil.addHandler(inp, 'click', sendReq);
+				
+				
+				// ----------------------------------------------------
+				
+				// 1.后台服务器的地址
+				// 2.是一个对象或者一个字符串（参数）
+				// 处理后台的函数
+				function sendReq() {
+					// ajax
+					// 1.后台服务器的地址
+					// 2.是一个对象或者一个字符串（参数）
+					//$.post('URL',{msg:this.value}, function(result) {
+					// CallBack . . . .
+					//});
+					alert('发送了指定的数据到后台：' + this.value);
+				}	
+			});
+			
+			*/
+			
+			
+			// 利用桥模式 分开两个业务逻辑单元
+			$(function(){
+				
+				// 1.前台业务逻辑
+				var inp = document.getElementById('inp');
+				// 用事件注册的方式，向元素上添加事件
+				TAO.EventUtil.addHandler(inp, 'click', bridgeHadler);
+				
+				
+				// 利用桥模式分开
+				function bridgeHadler() {
+					var msg = this.value;
+					sendReq(msg);
+				}
+				
+				// 2.后台业务逻辑	// 单元测试的时候sendReq('我也是数据...')
+				function sendReq(msg) {
+					// ajax
+					// 1.后台服务器的地址
+					// 2.是一个对象或者一个字符串（参数）
+					//$.post('URL',{msg:this.value}, function(result) {
+					// CallBack . . . .
+					//});
+					alert('发送了指定的数据到后台：' + msg);
+				}	
+			});
+			
+			
+		</script>
+	</head>
+
+	<body>
+		<input id="inp" type="button" value="我是数据...." />
+	</body>
+</html>

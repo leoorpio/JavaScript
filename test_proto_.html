@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>测试继承中的_proto_</title>
+		<script type="text/javascript" charset="UTF-8">
+ 			function Person(name, gender) {
+ 				this.name = name;
+ 				this.gender = gender;
+ 			}
+ 			Person.prototype.sayName = function() {
+			   console.log(this.name);
+			 };
+ 			
+ 			function Son(name, gender, age){
+ 				Person.call(this, name, gender);
+ 				this.age = age;
+ 			}
+ 			
+ 			Son.prototype = new Person();			//原型继承
+ 			var s = new Son('tao', 'male', 22);		//实例对象
+
+			
+			/**
+			 * 调试一
+			 */
+			
+			console.log(s);									// Person { name="tao",  gender="male",  age=22,  更多...}
+			console.log(s.__proto__);						// Person { name=undefined,  gender=undefined,  sayName=function()}	
+			console.log(s.constructor);						// Person(name, gender)
+			console.log(Person.prototype);					// Person {sayName=function}
+			console.log(Son.prototype);						// Person { name=undefined,  gender=undefined,  sayName=function()}
+			console.log(s.__proto__ == s.constructor);		// false
+			console.log(s.__proto__ == Person.prototype);	// false	
+			console.log(s.__proto__ == Son.prototype);		// true
+			console.log('*************')
+			console.log(Person);
+ 			console.log(s.__proto__ == Person);		// 
+ 			console.log(s.__proto__.__proto__);
+ 			
+ 			
+ 			/**
+ 			 * 调试二
+ 			 */
+			
+			/*
+ 			Son.prototype.constructor =	Son;
+ 			
+ 			console.log(s);									//  Son { name="tao",  gender="male",  age=22, 更多 ...}
+			console.log(s.__proto__);						//  Son { name=undefined,  gender=undefined,  constructor=Son(),  更多...}
+			console.log(s.constructor);						//  Son(name, gender, age)
+			console.log(Person.prototype);					// 	Person { sayName=function()}
+			console.log(Son.prototype);						//  Son { name=undefined,  gender=undefined,  constructor=Son(),  更多...}
+			console.log(s.__proto__ == s.constructor);		//	false
+			console.log(s.__proto__ == Person.prototype);	//	false	
+			console.log(s.__proto__ == Son.prototype);		//	true
+			
+			console.log(s.__proto__.__proto__);
+			*/
+
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>

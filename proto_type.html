@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>proto_type</title>
+		<meta name="description" content="">
+		<meta name="author" content="leoor">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<script type="text/javascript" charset="UTF-8">
+			/**
+			 * 继承
+			 */
+			function extend(father, son){
+				//目的：只继承父类的原型对象
+				
+				//1.用一个空函数进行中转
+				var F = new Function();	//function() {};
+				F.prototype = father.prototype;  //空函数的原型对象和父类的原型对象转换
+				son.prototype = new F();	//原型继承
+				console.log('extend() Son的原型-1：'+son.prototype);
+				son.prototype.constructor = son;	//还原子类的构造器
+				console.log('extend() Son 的原型-2 ：'+son.prototype);
+				//保存一下父类的原型的对象，一方面是方便解耦，一方面是方便获得父类的原型对象
+				son.superClass = father.prototype;	//自定义一个子类的静态属性，接受父类的原型对象 
+				if(son.prototype.constructor == Object.prototype.constructor){
+					father.prototype.constructor = father;	//手动还原父类的构造器
+				}
+			}
+			
+			function Father(name) {
+				this.name = name;
+			}
+			
+			Father.prototype = {
+				constructor: Father,
+				sayName: function() {
+					console.log('father\'s function');
+				},
+				teachMe: function() {
+					console.log('fathder teaches me to learn words');
+				},
+				speak: function() {
+					console.log('this is Father \'s method ');
+				}
+			};
+			
+			function Son(name, sex, age) {
+				Son.superClass.constructor.call(this, name, sex);
+				this.age = age;
+			}
+			
+			extend(Father, Son);
+	
+			Son.prototype.speak = function() {
+				console.log('Son\'s method');
+			};
+		
+			var s = new Son('tao', 'male', 21);
+			var b = new Son('baby', 'female', 1);
+			s.sayName();
+			b.speak();
+			Son.superClass.speak();
+			console.log(b);
+		</script>
+	</head>
+
+	<body>
+		<div>
+			<header>
+				<h1>proto_type</h1>
+			</header>
+			<nav>
+				<p>
+					<a href="/">Home</a>
+				</p>
+				<p>
+					<a href="/contact">Contact</a>
+				</p>
+			</nav>
+
+			<div>
+
+			</div>
+
+			<footer>
+				<p>
+					&copy; Copyright  by leoor
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>

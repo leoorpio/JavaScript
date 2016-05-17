@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>006_oop2</title>
+		<meta name="author" content="leoor" />
+		<!-- Date: 2016-02-07 -->
+		<script type="text/javascript" charset="UTF-8">
+			// 原型 prototype
+			/*
+			function Person(name, age){
+				this.name = name;
+				this.age = age;
+				this.sayName = sayName;
+				//this.sayName = function(){alert('我是姓名');};			
+			}
+			function sayName(){
+				alert('this.name');
+			}
+			var p1 = new Person('z3', 20);
+			var p2 = new Person('z4', 21);
+			alert(p1.sayName == p2.sayName); // false
+			alert(p1.name == p2.name); // false
+			*/
+			
+			// prototype 创建每一个函数都有一个prototype属性，这个属性其实是一个指针，而这个指针总指向一个对象
+			// 这个对象的用途就是将特定的属性和方法包含在内，起到一个所有实例所共享的作用
+			
+			function Person(){
+				
+			}
+			
+			var obj = Person.prototype;
+			obj.name = 'z3';
+			var p1 = new Person();
+			var prototypeObj = Object.getPrototypeOf(p1);  //根据实例对象获得原型对象
+			alert(typeof obj); // object
+			alert(obj);
+			alert(obj.constructor);
+			
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>
+

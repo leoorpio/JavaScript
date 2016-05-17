@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>019_factory02</title>
+		<meta name="description" content="">
+		<meta name="author" content="leoor">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<!-- 引入的核心js公共文件 -->
+		<script type="text/javascript" charset="UTF-8" src="commons/common_util.js"></script>
+		<script type="text/javascript" charset="UTF-8">			
+			
+			function CarShop() {};
+			CarShop.prototype = {
+				constructor: CarShop,
+				sellCar: function(type) {
+					this.abstractSellCar(type);
+					
+				},
+				abstractSellCar: function() {
+					throw new Error('this method is abstract...');
+				}
+			};
+			
+			//Benz 4s 店
+			function BenzCarShop() {};
+			TAO.extend(BenzCarShop, CarShop);
+			BenzCarShop.prototype = {
+				constructor: BenzCarShop,
+				sellCar: function(type) {
+					var car;	// 声明一个变量
+					var types = ['Benz'];	// 所有benz类型的汽车
+					for(t in types) {
+						// 如果我的商店里有你想要汽车型号
+						if(types[t] === type) {
+							car = CarFactory.createCar(type);
+						} else {
+							alert('没有你想要的型号');
+						}
+					}
+
+				}
+			};
+			//BMW 4s 店
+			function BmwCarShop() {};
+
+			TAO.extend(BmwCarShop, CarShop);
+			BmwCarShop.prototype = {
+				constructor: BmwCarShop,
+				sellCar: function(type) {
+
+				}
+			};
+			
+			// 生产车的工厂 目的是为了生产车
+			// 单体模式  动态工厂函数
+			var CarFactory = {
+				createCar: function(type) {
+					var car = eval('new '+type+'()');
+					TAO.ensureImplements(car, CarInterface);
+					return car;
+				}
+			};
+			
+					
+			var CarInterface = new TAO.Interface('CarInterface', ['start', 'run']);		
+			
+			
+			
+			//Class benz bmw audi(cars)
+			function Benz() {};
+			Benz.prototype.start = function() {alert('Benz..start');};
+			Benz.prototype.run = function() {alert('Benz..run');};
+			
+			function Bmw() {};
+			Bmw.prototype.start = function() {alert('Bmw..start');};
+			Bmw.prototype.run = function() {alert('Bmw..run');};
+			
+			function Audi() {};
+			Audi.prototype.start = function() {alert('Audi..start');};
+			Audi.prototype.run = function() {alert('Audi..run');};
+			
+			var shop1 = new BenzCarShop();
+			var car1 = shop1.sellCar('Benz');
+			
+			var shop2 = new BenzCarShop();
+			var car2 = shop1.sellCar('BMW');
+			
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="UTF-8">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>001_function</title>
+		<meta name="author" content="leoor" />
+		<!-- Date: 2016-02-03 -->
+		<script type="text/javascript" charset="UTF-8">
+			//3种方式定义函数
+			
+			//1 function语句式
+			
+			// function test1(){
+				// alert("我是test1");
+			// }
+// 			
+			//2函数的直接量  ECMAScript
+			// var test2 = function () {
+			  	// alert("我是test2");
+			// }
+			
+			//3 function构造函数式
+			//var test3 = new Function("a","b","return a+b");
+			
+			var d1 = new Date();
+			var t1 = d1.getTime();
+			for (var i=0; i < 10000; i++) {
+			  function test1(){;}
+			  //var test2 = new Function();
+			  //var test3 = function(){;};
+			};
+			var d2 = new Date();
+			var t2 = d2.getTime();
+			alert(t2-t1);
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>
+

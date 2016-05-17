@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>008_prototype</title>
+		<meta name="author" content="leoor" />
+		<!-- Date: 2016-02-08 -->
+		<script type="text/javascript" charset="UTF-8">
+			// 简单原型
+			function Person() {
+				
+			};
+			
+			Person.prototype = {
+				constructor: Person,	
+				name: 'z3',
+				age: 20,
+				job: '程序员',
+				say: function() {
+					console.log('我是原型的函数！');
+				}				
+			};
+			// ECMA5 给原型对象重新设置构造器的方法 Object.defineProperty();
+			// 三个参数：参数一：重新构造器的对象  参数二：设置什么属性  参数三：options配置项
+			var p1 = new Person();
+			console.log(p1.name);
+	
+			Object.defineProperty(Person.prototype, 'constructor' , {
+					enumerable: false,
+					value: Person
+			});
+			
+			for(attr in p1){
+				console.log(attr);
+			}
+			console.log(Object.keys(Object.getPrototypeOf(p1)));	//Array [ "name", "age", "job", "say" ]
+			console.log(Object.keys(Person.prototype));		//Array [ "name", "age", "job", "say" ]
+			console.log(Object.getOwnPropertyNames(Person.prototype));	//Array [ "constructor", "name", "age", "job", "say" ]
+			
+			/*
+		    function creatFn() {
+		    	var i = null;
+		    	return i;
+		    }
+		    alert(creatFn);
+		    */
+		   
+		</script>
+		
+	</head>
+	<body>
+
+	</body>
+</html>
+

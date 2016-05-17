@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>009_oop4</title>
+		<meta name="description" content="">
+		<meta name="author" content="leoor">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<script type="text/javascript" charset="UTF-8">
+			// js 中怎么去实现继承：采用原型链中的概念
+			// 构造函数，原型对象 实例对象
+			
+			// 1.构造函数.prototype = 原型对象
+			// 2.原型对象.constructor = 构造函数（模板）
+			// 3.原型对象.isPrototypeOf(实例对象) 判断实例对象的原型是不是当前原型对象
+			// 4.构造函数 实例对象 （类和实例）
+			
+			// 父类构造函数 Father
+			function Father(name) {
+				this.name = name;
+			}
+			
+			// 父类的原型对象
+			Father.prototype = {
+				constructor: Father,
+				sayName: function() {
+					console.log('this is father\'s method '+this.name);
+				},
+				callMe: function() {
+					console.log('this is method named callMe');
+				}
+			};
+			
+			// 子类构造函数 Son
+			function Son(sex,age) {
+				this.sex = sex;
+				this.age = age;
+			}
+			
+			/**
+			 * 如果我们让子类的原型对象等于父类的实例，结果会怎么样呢？（实现js的继承）
+			 * 1.显然此时的原型对象将包含一个指向另一个原型的指针
+			 * Father的实例对象 和 Father 的原型对象有一个关系
+			 * 2.相应的另一个原型中也包含着一个指向另一个构造函数的指针
+			 *   子类的原型对象的构造器变成了父类的构造器
+			 */
+			
+			Son.prototype = new Father('zc');
+			var s = new Son('male', 20);
+			var f = new Father('zc');
+			console.log('s.sex value is '+s.sex);	// male
+			console.log('s.age value is '+s.age);		//20
+			s.sayName();	//ta
+			
+			Son.prototype.constructor = Son;
+			Son.prototype.sayHello = function() {
+				console.log('this is Son\'s method');
+			};
+			
+			s.sayHello();	//s.sayHello() is not a function
+			console.log(Son.prototype);	//Object{name: 'zc'}
+			console.log(f);		//Object{name: 'zc'}
+			
+
+			 
+		</script>
+	</head>
+
+	<body>
+		<div>
+			<header>
+				<h1>009_oop4</h1>
+			</header>
+			<nav>
+				<p>
+					<a href="/">Home</a>
+				</p>
+				<p>
+					<a href="/contact">Contact</a>
+				</p>
+			</nav>
+
+			<div>
+
+			</div>
+
+			<footer>
+				<p>
+					&copy; Copyright  by leoor
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>

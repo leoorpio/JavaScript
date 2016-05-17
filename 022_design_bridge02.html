@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>037_design_bridge02</title>
+		<meta name="description" content="">
+		<meta name="author" content="leoor">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<script type="text/javascript" charset="UTF-8">
+			
+			/*
+			 
+			// 桥模式：特权函数
+			var PublicClass = function() {
+				// private variable
+				var name = '张三';
+				this.getName = function() {
+					return name;
+				};
+			};
+			
+			var p1 = new PublicClass();
+			alert(p1.getName());
+			
+			*/
+			
+			var PublicClass = function() {
+				// 私用化的变量
+				var privateMethod = function() {
+					alert('执行了一个很复杂的操作...');
+				};
+				
+				// privateMethod();
+				this.bridgeMethod = function() {
+					return pribateMethod();
+				};
+			};
+			
+			var p1 = new PublicClass();
+			p1.bridgeMethod();
+			
+			// 桥模式：用桥把多个单体组织在一起
+			
+			var Class1 = function(a, b, c) {
+				this.a = a;
+				this.b = b;
+				this.c = c;
+			};
+			
+			var Class2 = function(d, e) {
+				this.d = d;
+				this.e = e;
+			};
+			
+			var BridgeClass = function(a, b, c, d, e) {
+				this.class1 = new Class1(a, b, c);
+				this.class2 = new Class2(d, e);
+			};
+			
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>

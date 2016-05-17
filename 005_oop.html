@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>005_oop</title>
+		<meta name="author" content="leoor" />
+		<!-- Date: 2016-02-06 -->
+		<script type="text/javascript" charset="UTF-8">
+/* 
+			var obj = new Object(); //var boj = {}
+			obj.name = "z3";
+			obj.sex = "male";
+			obj.sayName = function(){
+				alert("I am z3");
+			};*/
+			
+			//类的概念
+/*
+			
+			function createPerson(name,sex,age){
+				var obj = new Object();
+				obj.name = name;
+				obj.sex = sex;
+				obj.age = age;
+				obj.sayName = function(){
+					alert(this.name);
+				};
+				return obj;
+			}
+			*/
+
+			//第二种形式，构造函数式 new Array(),new Date()
+			//函数的第一个字母大写（类的模板）
+			function Person(name,age,sex){
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+				this.sayName = function(){
+					alert(this.name);
+				};
+			}
+			
+			//构造一个对象 new关键字 ，传递参数，执行模板代码，返回对象
+		/*
+			var p1 = new Person('灏�1',20,'鐢�');
+					alert(p1.name);
+					*/
+		
+			
+			
+			// 创建对象的方式；
+			// 1 当作构造函数去使用：
+			var p1 = new Person('小1', 20, '男');
+			
+			// 2作为普通普通的函数去调用
+			Person('小2', 20, '男');
+			alert(name);
+			
+			// 3在另外一个对象的作用域中调用
+			var o = new Object();
+			Person.call(o, '小1', 20, '男');
+		</script>
+	</head>
+	<body>
+
+	</body> 
+</html>
+

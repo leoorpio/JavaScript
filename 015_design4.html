@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>015_design4</title>
+		<meta name="description" content="">
+		<meta name="author" content="leoor">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<script type="text/javascript" charset="UTF-8">
+			// 单体模式（singleton）
+			// 1 简单单体模式
+			var Singleton = {
+				attr1: true,
+				attr2: 10,
+				method1: function() {
+					alert('I am method1');
+				},
+				method2: function() {
+					alert('I am method2');
+				},
+			};
+			
+			// alert(Singleton.attr1);
+			// 补充：划分命名空间（区分代码）
+			/*
+			var TAO = {};
+			TAO.Singleton = {
+				attr1: true,
+				attr2: 10,
+				method1: function() {
+					alert('我是方法1');
+				},
+				method2: function() {
+					alert('我是方法2');
+				}
+			};
+			TAO.Singleton.method1();
+			*/
+			
+			// 2借用闭包创建单体：闭包正真的目的：保护数据
+			/*
+			var TAO = {};
+			TAO.Singleton = (function(){
+				// 添加自己的私有成员
+				var a1 = true;
+				var a2 = 10;
+				var f1 = function() {
+					alert('f1');
+				};
+				var f2 = function() {
+					alert('f2');
+				};
+				//把块级作用域里的执行结果赋值给我的单体对象
+				return {
+					attr1: a1,
+					attr2: a2,
+					method1: function() {
+						return f1();
+					},
+					method2: function() {
+						return f2();
+					}
+				};	
+			})();
+			alert(TAO.Singleton.attr1);
+			TAO.Singleton.method1();
+			*/
+			
+			// 惰性单体（和闭包单体有一些相似的地方）
+			// 命名空间
+			var Ext = {};
+			Ext.Base = (function() {
+				// 私用变量 控制返回的单体对象
+				var uniInstance; //undefined
+				
+				// 需要一个构造器 init 初始化单体对象的方法
+				function init() {
+					// 私有成员变量
+					var a1 = 10;
+					var a2 = true;
+					var fn1 = function() {alert('fn1');};
+					var fn2 = function() {alert('fn2');};
+					
+					return {
+						attr1: a1,
+						attr2: a2,
+						method1: function() {
+							return fn1();
+						},
+						method2: function() {
+							return fn2();
+						},
+						
+				
+					};
+				}
+
+				return {
+					getInstance: function() {
+						if(!uniInstance) { //如果不存在，创建单体实例
+							uniInstance = init();
+						}
+						return uniInstance;
+					}
+				};
+			})();
+			
+			alert(Ext.Base.getInstance());
+			Ext.Base.getInstance().method1();
+			
+			//分支单体 （判断程序的分支<浏览器差异的检测>）
+			var Ext = {};
+			var def = true;
+			Ext.More = (function() {
+				var objA = {	// 火狐浏览器 内部的一些配置
+					attr1: 'FF属性1',
+					// 属性1
+					// 属性2
+					// 方法1
+					// 方法2
+				};
+				var objB = {	// IE浏览器 内部的一些配置
+					attr1: 'IE属性1',
+				};
+				return (def) ? objA:ObjB;
+			})();
+			
+			alert(Ext.More.attr1);
+		</script>
+	</head> 
+
+	<body>
+		<div>
+			<header>
+				<h1>015_design4</h1>
+			</header>
+			<nav>
+				<p>
+					<a href="/">Home</a>
+				</p>
+				<p>
+					<a href="/contact">Contact</a>
+				</p>
+			</nav>
+
+			<div>
+
+			</div>
+
+			<footer>
+				<p>
+					&copy; Copyright  by leoor
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>
