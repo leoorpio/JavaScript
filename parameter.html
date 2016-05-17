@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>parameter</title>
+		<meta name="description" content="函数的实参和形参">
+		<meta name="author" content="leoor">
+	</head>
+	<body>
+		<script type="text/javascript" charset="UTF-8">
+			// 将对象o中可枚举的属性名追加至数组a中，并返回这个数组a
+			// 如果省略a， 则创建一个新数组并返回这个新数组
+			function getPropertyNames(o, /*optional*/ a) {
+				if(a === undefined) a = []; // 如果未定义，使用新数组
+				// 等同 a = a || []; 
+				for(var property in o) {
+					a.push(property);
+					return a;
+				}
+			}
+			var a = getPropertyNames(o); // 将o的属性存储到一个新数组中
+			getPropertyNames(p, a); // 将p的属性追加至数组a中
+		</script>
+	</body>
+</html>
